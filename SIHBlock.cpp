@@ -1,27 +1,25 @@
 #include "SIHBlock.h"
 #include "hash1.h"
-#include <time.h>
 
 Block::Block(uint32_t nIndexIn, const string& sDataIn) : _nIndex(nIndexIn), _sData(sDataIn) {
     _nNonce = -1;
-    _tTime = time(nullptr);
 }
 string Block::GetHash() {
     return _sHash; 
 }
-void Block::MineBlock (uint32_t nDifficulty) {
-    char  cstr[nDifficulty +1];
-    for (uint32_t i = 0; i < nDifficulty; ++i) {
+void Block::MineBlock (uint32_t key) {
+    char  cstr[key +1];
+    for (uint32_t i = 0; i < key; ++i) {
         cstr[i] = '0';
     }
-    cstr[nDifficulty] = '\0';
+    cstr[key] = '\0';
 
     string str(cstr);
 
     do {
         _nNonce++;
         _sHash = _CalculateHash();
-    } while (_sHash.substr(0, nDifficulty) != str);
+    } while (_sHash.substr(0, key) != str);
 
     cout << "Block mined: " << _sHash << endl;
 }
