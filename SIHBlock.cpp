@@ -20,12 +20,10 @@ void Block::Block1 (uint32_t key) {
         _nNonce++;
         _sHash = _CalculateHash();
     } while (_sHash.substr(0, key) != str);
-
-    cout << "Block mined: " << _sHash << endl;
 }
 inline string Block::_CalculateHash() const {
     stringstream ss;
-   ss << _nIndex << _tTime << _sData << _nNonce << sPrevHash;
+   ss << _nIndex << _sData << _nNonce << sPrevHash;
 
     return sha256(ss.str());
 }
