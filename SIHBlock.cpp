@@ -1,5 +1,5 @@
 #include "SIHBlock.h"
-#include "hash1.h"
+#include "hash.h"
 
 Block::Block(uint32_t nIndexIn, const string& sDataIn) : _nIndex(nIndexIn), _sData(sDataIn) {
     _nNonce = -1;
@@ -7,7 +7,7 @@ Block::Block(uint32_t nIndexIn, const string& sDataIn) : _nIndex(nIndexIn), _sDa
 string Block::GetHash() {
     return _sHash; 
 }
-void Block::MineBlock (uint32_t key) {
+void Block::Block1 (uint32_t key) {
     char  cstr[key +1];
     for (uint32_t i = 0; i < key; ++i) {
         cstr[i] = '0';
@@ -24,8 +24,8 @@ void Block::MineBlock (uint32_t key) {
     cout << "Block mined: " << _sHash << endl;
 }
 inline string Block::_CalculateHash() const {
-    stringstream s;
-   s << _nIndex << _tTime << _sData << _nNonce << sPrevHash;
+    stringstream ss;
+   ss << _nIndex << _tTime << _sData << _nNonce << sPrevHash;
 
-    return sha256(s.str());
+    return sha256(ss.str());
 }
